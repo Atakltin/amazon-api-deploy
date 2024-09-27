@@ -14,7 +14,7 @@ app.use(express.json());
 
 app.get("/", (req, res) => {
     res.status(200).json({
-    message: "Success 1 !",
+    message: "Success 3 !",
     });
 });
 
