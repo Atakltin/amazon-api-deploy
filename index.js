@@ -14,13 +14,14 @@ app.use(express.json());
 
 app.get("/", (req, res) => {
     res.status(200).json({
-    message: "Success !",
+    message: "Success 1 !",
     });
 });
 
 app.post("/payment/create", async (req, res) => {
     const total = parseInt(req.query.total);
-    if (total > 0) {
+    try {
+        if (total > 0) {
     const paymentIntent = await stripe.paymentIntents.create({
         amount: total,
         currency: "usd",
@@ -33,6 +34,12 @@ app.post("/payment/create", async (req, res) => {
         message: "total must be greater than 0",
     });
     }
+    } catch (error) {
+        res.status(500).json({
+        message: error,
+    });
+    }
+    
 });
 app.listen(5000, (err) => {
     if (err) throw err
